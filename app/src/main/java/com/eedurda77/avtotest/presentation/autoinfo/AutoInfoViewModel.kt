@@ -56,7 +56,6 @@ class AutoInfoViewModel @Inject constructor(
 
     private fun getRemoteData() {
         viewModelScope.launch {
-
             when (val result = repositoryAuto.getAutoInfoById(id = id.toInt())) {
                 is Resource.Error -> {
                     _state.update { currentState ->
