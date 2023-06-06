@@ -3,7 +3,8 @@ package com.eedurda77.avtotest.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.eedurda77.avtotest.presentation.autolist.AutoListScreen
+import androidx.navigation.compose.rememberNavController
+import com.eedurda77.avtotest.presentation.navigation.NavController
 import com.eedurda77.avtotest.ui.theme.AvtoTestTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -13,7 +14,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AvtoTestTheme {
-                AutoListScreen()
+                val navController = rememberNavController()
+                NavController(
+                    navController = navController,
+                    startDestination = "autosListScreen",
+                )
             }
         }
     }

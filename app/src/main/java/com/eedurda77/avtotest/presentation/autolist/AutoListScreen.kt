@@ -16,12 +16,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun AutoListScreen(
     modifier: Modifier = Modifier,
-    viewModel: AutoListViewModel = hiltViewModel()
+    viewModel: AutoListViewModel = hiltViewModel(),
+    navController: NavHostController
 ) {
     val state = viewModel.state.collectAsState()
     LazyColumn(modifier = modifier.fillMaxSize()) {
