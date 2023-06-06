@@ -19,7 +19,7 @@ interface AutoApi {
         @Path("id") autoId: Int
     ) : AutoInfoDto
 
-    @GET("car/{id}")
+    @GET("car/{id}/posts")
     suspend fun getPosts (
         @Path("id") autoId: Int,
         @Query("page") page: Int,
