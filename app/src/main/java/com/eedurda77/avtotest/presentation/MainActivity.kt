@@ -1,4 +1,4 @@
-package com.eedurda77.avtotest
+package com.eedurda77.avtotest.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
