@@ -49,6 +49,7 @@ fun AutoListScreen(
                 viewModel.loadNextItems()
             }
             ItemAuto(
+                navController = navController,
                 auto = auto
             )
         }

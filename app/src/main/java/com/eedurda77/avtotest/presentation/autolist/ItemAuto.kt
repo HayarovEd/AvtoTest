@@ -9,20 +9,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.eedurda77.avtotest.domain.model.Auto
 
 @Composable
 fun ItemAuto(
     modifier: Modifier = Modifier,
-    auto: Auto
+    auto: Auto,
+    navController: NavHostController
 ) {
     Column(
         modifier = modifier
             .fillMaxWidth()
             .padding(8.dp)
             .clickable {
-
+                navController.navigate(
+                    "autoInfoScreen/${auto.id}"
+                )
             }
     ) {
         AsyncImage(

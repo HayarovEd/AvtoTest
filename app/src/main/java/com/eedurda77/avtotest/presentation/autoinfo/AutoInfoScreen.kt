@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -56,7 +57,8 @@ fun AutoInfoScreen(
             Text(
                 modifier = modifier,
                 text = state.value.auto?.name ?: "",
-                fontSize = 30.sp
+                fontSize = 25.sp,
+                textAlign = TextAlign.Center
             )
         }
         Row(
@@ -67,7 +69,7 @@ fun AutoInfoScreen(
         ) {
             AsyncImage(
                 modifier = modifier
-                    .size(100.dp)
+                    .size(width = 200.dp, height = 150.dp)
                     .clip(shape = RoundedCornerShape(10.dp)),
                 model = state.value.auto?.pathImage,
                 contentDescription = state.value.auto?.name ?: ""
