@@ -7,5 +7,5 @@ data class AutoListState(
     val items: List<Auto> = emptyList(),
     val error: String? = null,
     val endReached: Boolean = false,
-    val page: Int = 0
+    val page: Int = 1
 )

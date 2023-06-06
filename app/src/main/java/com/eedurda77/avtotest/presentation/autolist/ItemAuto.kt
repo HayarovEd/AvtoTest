@@ -34,7 +34,7 @@ fun ItemAuto(
             modifier = modifier
                 .padding(start = 10.dp, top = 10.dp),
             text = auto.name,
-            fontSize = 25.sp
+            fontSize = 22.sp
         )
     }
 }
