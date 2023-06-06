@@ -2,8 +2,10 @@ package com.eedurda77.avtotest.data.mapper
 
 import com.eedurda77.avtotest.data.remote.dto.autoinfo.AutoInfoDto
 import com.eedurda77.avtotest.data.remote.dto.autos.AutoDtoItem
+import com.eedurda77.avtotest.data.remote.dto.post.PostDto
 import com.eedurda77.avtotest.domain.model.Auto
 import com.eedurda77.avtotest.domain.model.AutoInfo
+import com.eedurda77.avtotest.domain.model.PostAuto
 
 fun List<AutoDtoItem>.mapToAuto(): List<Auto> {
     return map { autoDtoItem ->
@@ -15,7 +17,7 @@ fun List<AutoDtoItem>.mapToAuto(): List<Auto> {
     }
 }
 
-fun AutoInfoDto.mapToAuto(): AutoInfo {
+fun AutoInfoDto.mapAutoInfo(): AutoInfo {
     return AutoInfo(
         id = this.car.id,
         name = this.car.name,
@@ -28,4 +30,17 @@ fun AutoInfoDto.mapToAuto(): AutoInfo {
         userName = this.user.username,
         pathAvatar = this.user.avatar.url
     )
+}
+
+fun PostDto.mapToPostAuto(): List<PostAuto> {
+    return this.posts.map { postDto ->
+        PostAuto(
+            id = postDto.id,
+            pathPost = postDto.img,
+            datePost = postDto.createdAt.substring(0, 10),
+            content = postDto.text,
+            likeCount = postDto.likeCount,
+            commentCount = postDto.commentCount
+        )
+    }
 }
