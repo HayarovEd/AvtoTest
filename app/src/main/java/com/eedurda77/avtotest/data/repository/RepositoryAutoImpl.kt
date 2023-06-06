@@ -1,6 +1,8 @@
 package com.eedurda77.avtotest.data.repository
 
+import com.eedurda77.avtotest.data.mapper.mapAutoInfo
 import com.eedurda77.avtotest.data.mapper.mapToAuto
+import com.eedurda77.avtotest.data.mapper.mapToPostAuto
 import com.eedurda77.avtotest.data.remote.dto.AutoApi
 import com.eedurda77.avtotest.domain.model.Auto
 import com.eedurda77.avtotest.domain.model.AutoInfo
@@ -26,7 +28,16 @@ class RepositoryAutoImpl @Inject constructor(private val api: AutoApi) : Reposit
     }
 
     override suspend fun getAutoInfoById(id: Int): Resource<AutoInfo> {
-        TODO("Not yet implemented")
+        return try {
+            Resource.Success(
+                data = api.getAutoInfo(
+                    autoId = id
+                ).mapAutoInfo()
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Resource.Error(message = e.message ?: "An unknown error")
+        }
     }
 
     override suspend fun getPostByAuto(
@@ -34,7 +45,18 @@ class RepositoryAutoImpl @Inject constructor(private val api: AutoApi) : Reposit
         page: Int,
         pageSize: Int
     ): Resource<List<PostAuto>> {
-        TODO("Not yet implemented")
+        return try {
+            Resource.Success(
+                data = api.getPosts(
+                    autoId = autoId,
+                    page = page,
+                    itemsInPage = pageSize
+                ).mapToPostAuto()
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Resource.Error(message = e.message ?: "An unknown error")
+        }
     }
 
 }
