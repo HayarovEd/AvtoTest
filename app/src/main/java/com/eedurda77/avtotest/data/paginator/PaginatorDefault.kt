@@ -1,19 +1,19 @@
 package com.eedurda77.avtotest.data.paginator
 
-import com.eedurda77.avtotest.domain.paginator.AutosPaginator
+import com.eedurda77.avtotest.domain.paginator.Paginator
 import javax.inject.Inject
 
-class AutosPaginatorDefault<Key, Item> @Inject constructor(
+class PaginatorDefault<Key, Item> @Inject constructor(
     initialKey: Key,
     private inline val onLoadUpdated: (Boolean) -> Unit,
     private inline val onRequest: suspend (nextKey: Key) -> Result<List<Item>>,
     private inline val getNextKey: suspend (List<Item>) -> Key,
     private inline val onError: suspend (Throwable?) -> Unit,
     private inline val onSuccess: suspend (items: List<Item>, newKey: Key) -> Unit
-) : AutosPaginator<Key, Item> {
+) : Paginator<Key, Item> {
     private var currentKey = initialKey
     private var isMakingRequest = false
-    override suspend fun loadNextAutos() {
+    override suspend fun loadNextItems() {
         if(isMakingRequest) {
             return
         }
