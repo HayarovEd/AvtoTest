@@ -1,5 +1,6 @@
 package com.eedurda77.avtotest.data.repository
 
+import android.util.Log
 import com.eedurda77.avtotest.data.mapper.mapAutoInfo
 import com.eedurda77.avtotest.data.mapper.mapToAuto
 import com.eedurda77.avtotest.data.mapper.mapToPostAuto
@@ -29,6 +30,7 @@ class RepositoryAutoImpl @Inject constructor(private val api: AutoApi) : Reposit
 
     override suspend fun getAutoInfoById(id: Int): Resource<AutoInfo> {
         return try {
+
             Resource.Success(
                 data = api.getAutoInfo(
                     autoId = id
@@ -46,15 +48,19 @@ class RepositoryAutoImpl @Inject constructor(private val api: AutoApi) : Reposit
         pageSize: Int
     ): Resource<List<PostAuto>> {
         return try {
+            val result  =api.getPosts(
+                autoId = autoId,
+                page = page,
+                itemsInPage = pageSize
+            )
+            Log.d("AASSDD", "result $result")
+            Log.d("AASSDD", "result map ${result.mapToPostAuto()}")
             Resource.Success(
-                data = api.getPosts(
-                    autoId = autoId,
-                    page = page,
-                    itemsInPage = pageSize
-                ).mapToPostAuto()
+                data = result.mapToPostAuto()
             )
         } catch (e: Exception) {
             e.printStackTrace()
+            Log.d("AASSDD", "error $e")
             Resource.Error(message = e.message ?: "An unknown error")
         }
     }

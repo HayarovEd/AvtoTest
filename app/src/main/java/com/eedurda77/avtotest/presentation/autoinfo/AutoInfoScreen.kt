@@ -8,8 +8,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,6 +43,20 @@ fun AutoInfoScreen(
             .fillMaxSize()
             .padding(10.dp)
     ) {
+        if (state.value.error != null) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    modifier = modifier,
+                    text = state.value.error ?: "Unknown error",
+                    fontSize = 16.sp
+                )
+            }
+        }
         Row(
             modifier = modifier
                 .fillMaxWidth(),
@@ -105,6 +121,33 @@ fun AutoInfoScreen(
                         text = state.value.auto?.userName ?: "",
                         fontSize = 20.sp
                     )
+                }
+            }
+        }
+        LazyColumn(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(top = 10.dp)
+        ) {
+            items(state.value.items.size) { number ->
+                val post = state.value.items[number]
+                if (number >= state.value.items.size - 1 && !state.value.endReached && !state.value.isLoading) {
+                    viewModel.loadNextItems()
+                }
+                ItemPost(
+                    post = post
+                )
+            }
+            item {
+                if (state.value.isLoading) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
                 }
             }
         }
